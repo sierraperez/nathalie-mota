@@ -16,8 +16,12 @@ get_header();
 ?>
 
 	<main id="primary" class="site-main">
-    We are in the front page
-		
+	<div class="hero-header" bis_skin_checked="1">
+		<a href="<?php echo esc_url(home_url('/')); ?>">
+			<img class= "hero-header"src="<?php echo get_template_directory_uri(); ?>/assets/img/nathalie-6.jpeg" alt="<?php bloginfo('name'); ?>">
+			<h1 class="hero-header__page-title">Photographe Event</h1>
+		</a>
+	</div>
 	</main><!-- #main -->
 
 <?php

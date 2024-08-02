@@ -1,0 +1,203 @@
+/* Estilizando o cabeçalho */
+
+.logo__header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 216px;
+    min-width: 216px;
+    height: 100%;
+    filter: brightness(1);
+    transition: width 0.2s, filter 0.2s;
+	margin-left: 700px;
+}
+.site-header {
+	
+	position: relative;
+	display: flex;
+	justify-content: center;
+	width: 100%;
+	height: 80px;
+	box-shadow: 0 1px 20px 1px rgba(0, 0, 0, 0.05);
+}
+
+/* Estilizando o logotipo */
+.site-branding {
+	display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 216px;
+    min-width: 216px;
+    height: 100%;
+    filter: brightness(1);
+    transition: width 0.2s, filter 0.2s;
+}
+
+/* Estilizando o menu de navegação */
+.main-navigation {
+    display: flex;
+	
+    justify-content: flex-end;
+}
+
+/* Remover margens e padding padrão do menu */
+.main-navigation ul {
+	font-family: "Space Mono", monospace;
+	list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: nowrap;
+    height: 80px;
+	margin-right: 500px;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: 1.4px;
+    color: #000000 !important;
+    text-transform: uppercase;
+    transition: font-weight 0.2s;
+}
+
+
+/* Estilizando itens do menu */
+.main-navigation ul li {
+    margin-left: 20px; /* Espaçamento entre itens do menu */
+}
+
+/* Estilizando links do menu */
+.main-navigation ul li a {
+    text-decoration: none; /* Remove sublinhado dos links */
+    padding: 10px 15px; /* Adiciona espaçamento ao redor dos links */
+    display: block; /* Faz os links ocuparem toda a área dos itens */
+}
+
+/* Estilo para o botão de menu (para dispositivos móveis) */
+.menu-toggle {
+    display: none; /* Oculta o botão de menu em dispositivos grandes */
+}
+
+/* Ajustes para dispositivos móveis */
+@media (max-width: 768px) {
+    .site-header {
+        flex-direction: column; /* Empilha logotipo e menu em dispositivos móveis */
+        align-items: flex-start; /* Alinha ao início (esquerda) */
+    }
+
+    .main-navigation {
+        width: 100%; /* Faz o menu ocupar toda a largura disponível em dispositivos móveis */
+        margin-left: 0; /* Remove o margem à esquerda em dispositivos móveis */
+    }
+
+    .menu-toggle {
+        display: block; /* Mostra o botão de menu em dispositivos móveis */
+    }
+}
+
+.hero-header img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.hero-header__page-title{
+	font-family: "Space Mono", monospace;
+    font-size: 96px;
+    font-style: italic;
+    font-weight: 700;
+    line-height: normal;
+    color: navy;
+    -webkit-text-stroke: 2px rgb(255, 255, 255);
+    text-transform: uppercase;
+    transition: font-size 0.2s;
+}
+/* Styles | Contact Form 7 */
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+/* Styles | Styles des Entrées du Contact Form 7 */
+input[type=email],
+input[type=text],
+select,
+textarea {
+    border: none;
+    border-radius: 7px;
+}
+
+/* Styles | Styles du Bouton Soumettre du Contact Form 7 */
+input[type=submit] {
+    display: block;
+    width: 263px;
+    height: 50px;
+    padding: 8px 15px;
+    border-radius: 2px;
+    margin: 0 auto;
+    transition: .3s ease-in-out;
+    cursor: pointer;
+    font-family: Space Mono;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 17.77px;
+    letter-spacing: 0em;
+    text-align: center;
+    border: none;
+    background-color: #D8D8D8;
+    color: #000000;
+}
+
+/* Styles | Styles de Survole du Bouton Soumettre du Contact Form 7 */
+input[type=submit]:hover {
+    background-color: #cccaca;
+}
+
+/* Styles | Messages d'Erreur du Contact Form 7 */
+.wpcf7-not-valid-tip {
+    color: #B8BBC2;
+}
+
+/* Styles | Styles de Sortie de Réponse du Contact Form 7 */
+.wpcf7 form.invalid .wpcf7-response-output,
+.wpcf7 form.unaccepted .wpcf7-response-output,
+.wpcf7 form.payment-required .wpcf7-response-output,
+.wpcf7 form .wpcf7-response-output {
+    color: #65676d;
+    font-family: Poppins;
+    font-size: 14px;
+    background-color: transparent;
+    border: none;
+}
+
+/* Styles | Étiquettes pour le Contact Form 7 */
+.wpcf7 input[type="text"],
+.wpcf7 input[type="email"],
+.wpcf7 textarea {
+    width: 263px;
+    height: 40px;
+    border-radius: 8px;
+    border: 1px solid #B8BBC2;
+    background: linear-gradient(0deg, #FFFFFF, #FFFFFF);
+    padding: 5px 10px;
+}
+
+/* Styles | Styles d'Étiquettes pour le Contact Form 7 */
+.wpcf7 input[type="text"],
+.wpcf7 input[type="email"],
+.wpcf7 textarea,
+.wpcf7 label {
+    font-family: Poppins;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 18px;
+    letter-spacing: 0em;
+    text-align: left;
+}
+
+/* Styles | Style d'Étiquette de Message pour le Contact Form 7 */
+.wpcf7 textarea[name="your-message"] {
+    height: 190px;
+}

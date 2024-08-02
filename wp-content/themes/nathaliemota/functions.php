@@ -142,6 +142,7 @@ function nathaliemota_scripts() {
 	wp_enqueue_style( 'nathaliemota-style', get_stylesheet_uri(), array(), _S_VERSION );
 	wp_style_add_data( 'nathaliemota-style', 'rtl', 'replace' );
 	wp_enqueue_style( 'font-awesome', get_template_directory_uri(). '/assets/fonts/fontawesome/css/all.min.css', false, '6.4.2' );
+	wp_enqueue_style( 'theme-css', get_template_directory_uri(). '/assets/css/theme.css',array(), _S_VERSION );
 	wp_enqueue_script( 'nathaliemota-navigation', get_template_directory_uri() . '/js/navigation.js', array(), _S_VERSION, true );
 	wp_enqueue_script( 'nathaliemota-main', get_template_directory_uri() . '/js/main.js', array(), _S_VERSION, true );
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
