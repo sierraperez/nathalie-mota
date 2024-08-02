@@ -59,6 +59,12 @@
     text-transform: uppercase;
     transition: font-weight 0.2s;
 }
+.main-navigation ul li a {
+	color:black;
+}
+.main-navigation ul li a:hover{
+	font-weight: bolder;
+}
 
 
 /* Estilizando itens do menu */
@@ -95,22 +101,35 @@
     }
 }
 
-.hero-header img {
+.hero-header {
+    position: relative;
+    width: 100vw;
+    height: 965px;
+}
+
+.hero-header__img {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
-.hero-header__page-title{
-	font-family: "Space Mono", monospace;
+
+.hero-header__page-title {
+    font-family: "Space Mono", monospace;
     font-size: 96px;
     font-style: italic;
     font-weight: 700;
     line-height: normal;
-    color: navy;
+    color: transparent;
     -webkit-text-stroke: 2px rgb(255, 255, 255);
     text-transform: uppercase;
     transition: font-size 0.2s;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
 }
+
 /* Styles | Contact Form 7 */
 form {
     display: flex;
