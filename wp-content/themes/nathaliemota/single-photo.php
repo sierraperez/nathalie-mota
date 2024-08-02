@@ -21,7 +21,7 @@ get_header();
             <p> <?= the_content(); ?></p>
             <?= get_field("reference");?>
             <?= get_field("type")?>
-            <?= get_term();?>
+            <!-- <?= get_term();?> -->
             
             <?php 
 		endwhile; // End of the loop.
