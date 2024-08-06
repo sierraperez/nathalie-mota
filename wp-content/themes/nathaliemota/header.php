@@ -37,12 +37,7 @@
 				<img class= "logo__header"src="<?php echo get_template_directory_uri(); ?>/assets/img/logo.png" alt="<?php bloginfo('name'); ?>">
 			</a>
 		</div><!-- .site-branding -->
-		 <!-- Botão do menu "hamburger" -->
-		 <button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false">
-            <span class="menu-icon">&#9776;</span> <!-- Icone do hamburger -->
-            <span class="sr-only">Menu</span>
-        </button>
-
+		
 		<nav id="site-navigation" class="main-navigation">
 			<button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false"><?php esc_html_e( 'Primary Menu', 'nathaliemota' ); ?></button>
 			<?php

@@ -220,48 +220,40 @@ input[type=submit]:hover {
 .wpcf7 textarea[name="your-message"] {
     height: 190px;
 }
- /* Estiliza o botão hamburger */
-.menu-toggle {
-    display: none;
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 24px;
-    position: relative;
-}
-
-/* Esconde o ícone do menu padrão em telas grandes */
-.nav-menu {
+ 
+.menu-footer-menu-container ul {
+	font-family: "Space Mono", monospace;
+	list-style: none;
     display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    height: 80px;
+	margin-right: 500px;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: 1.4px;
+    color: #000000 !important;
+    text-transform: uppercase;
+    transition: font-weight 0.2s;
+}
+.menu-footer-menu-container ul li a {
+	color:black;
+}
+.menu-footer-menu-container ul li a:hover{
+	font-weight: bolder;
 }
 
-/* Esconde o menu em telas pequenas */
-.nav-menu {
-    display: none;
+
+/* Estilizando itens do menu */
+.menu-footer-menu-container ul li {
+    margin-left: 20px; /* Espaçamento entre itens do menu */
 }
 
-/* Mostrar o botão hamburger em telas pequenas */
-@media (max-width: 768px) {
-    .menu-toggle {
-        display: block;
-    }
-
-    .nav-menu {
-        display: none;
-        position: absolute;
-        top: 60px; /* Ajuste conforme necessário */
-        right: 0;
-        background-color: #fff; /* Ajuste conforme necessário */
-        width: 100%;
-        flex-direction: column;
-    }
-
-    .nav-menu.active {
-        display: flex;
-    }
-
-    .nav-menu li {
-        padding: 10px;
-        text-align: center;
-    }
+/* Estilizando links do menu */
+.menu-footer-menu-container ul li a {
+    text-decoration: none; /* Remove sublinhado dos links */
+    padding: 10px 15px; /* Adiciona espaçamento ao redor dos links */
+    display: block; /* Faz os links ocuparem toda a área dos itens */
 }
