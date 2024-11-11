@@ -6,7 +6,9 @@ $( document ).ready(function() {
         $('.popup-overlay').show();
     });
     $('.popup-close').click(function(){
+        console.log('Test')
         $('.popup-overlay').hide();
     })
 
 });
+
