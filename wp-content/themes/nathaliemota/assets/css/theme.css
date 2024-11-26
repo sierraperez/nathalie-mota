@@ -2,14 +2,8 @@
 
 .logo__header {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 216px;
-    min-width: 216px;
     height: 100%;
-    filter: brightness(1);
-    transition: width 0.2s, filter 0.2s;
-	margin-left: 700px;
+   
     
 }
 .site-header {
@@ -20,18 +14,15 @@
 	width: 100%;
 	height: 80px;
 	box-shadow: 0 1px 20px 1px rgba(0, 0, 0, 0.05);
+    padding: 0 150px;
 }
 
 /* Estilizando o logotipo */
 .site-branding {
 	display: flex;
-    justify-content: center;
     align-items: center;
-    width: 216px;
-    min-width: 216px;
     height: 100%;
-    filter: brightness(1);
-    transition: width 0.2s, filter 0.2s;
+   
 }
 
 /* Estilizando o menu de navegação */
@@ -51,7 +42,6 @@
     align-items: center;
     flex-wrap: nowrap;
     height: 80px;
-	margin-right: 500px;
     font-size: 14px;
     font-style: normal;
     font-weight: 400;
@@ -113,6 +103,7 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+    margin-bottom: 5%;
 }
 
 .hero-header__page-title {
@@ -227,18 +218,13 @@ input[type=submit]:hover {
 	font-family: "Space Mono", monospace;
 	list-style: none;
     display: flex;
-    align-items: center;
-    flex-wrap: nowrap;
-    height: 80px;
-	margin-right: 500px;
     font-size: 14px;
     font-style: normal;
     font-weight: 400;
-    line-height: normal;
-    letter-spacing: 1.4px;
     color: #000000 !important;
     text-transform: uppercase;
-    transition: font-weight 0.2s;
+    text-align: center;
+    justify-content: center;
 }
 .menu-footer-menu-container ul li a {
 	color:black;

@@ -78,8 +78,8 @@ html {
  * Remove the margin in all browsers.
  */
 body {
-	max-width: 1440px;
-    margin: 0 auto;
+  max-width: 100%;
+  margin: 0 auto;
 }
 
 /**
@@ -1072,17 +1072,33 @@ textarea {
   border-bottom: #000 1px solid;
 }
 .photo-info-left h1 {
-    text-transform: uppercase;
-    font-size: 40px;
-    font-style: italic;
-    font-weight: 400;
-    width: 11vw
+  text-transform: uppercase;
+  font-size: 40px;
+  font-style: italic;
+  font-weight: 400;
+  width: 11vw;
 }
 
 .photo-info-right {
   position: relative;
 }
 
-.btn-gray{
-  background-color:gray;
+.btn-gray {
+  background-color: gray;
+}
+
+.galerie-photo {
+  margin: 0 auto; /* Centraliza a galeria na página */
+  padding: 16px; /* Espaçamento ao redor, opcional */
+  gap: 16px; /* Espaço entre as imagens */
+  display: flex;
+  text-align: center;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.galerie-photo img {
+  width: 564px; /* Defina a largura desejada */
+  height: 495px; /* Defina a altura desejada */
+  object-fit: cover; /* Mantém a proporção e cobre o contêiner */
 }
