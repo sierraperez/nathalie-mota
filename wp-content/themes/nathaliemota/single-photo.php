@@ -89,10 +89,50 @@ get_header();
     <?php
     endwhile; // End of the loop.
     ?>
-    <div class="sugestion">
-
-        <?php get_template_part('template-parts/photo/photo-block') ?>
+    <div class="aime">
+        <h3> Vous aimerez AUSSI</h3>
     </div>
+    <div class="sugestion" id="related-photos">
+        <?php
+        // Obtém a categoria atual do post
+        $categories = get_the_terms($post->ID, 'categorie');
+        if ($categories && !is_wp_error($categories)) {
+            $category_ids = wp_list_pluck($categories, 'term_id');
+
+            // Query inicial: Mostra 2 posts da mesma categoria
+            $args = array(
+                'post_type'      => 'photo',
+                'posts_per_page' => 2,
+                'post__not_in'   => array($post->ID), // Exclui o post atual
+                'tax_query'      => array(
+                    array(
+                        'taxonomy' => 'categorie',
+                        'field'    => 'term_id',
+                        'terms'    => $category_ids,
+                    ),
+                ),
+            );
+
+            $query = new WP_Query($args);
+
+            if ($query->have_posts()) :
+                while ($query->have_posts()) : $query->the_post();
+                    get_template_part('template-parts/photo/one-photo');
+                endwhile;
+            endif;
+
+            wp_reset_postdata();
+        }
+        ?>
+    </div>
+
+    <!-- Botão para carregar mais -->
+    <button id="load-more"
+        data-category="<?php echo esc_attr($category_ids[0]); ?>"
+        data-page="1"
+        data-exclude="<?php echo get_the_ID(); ?>">Charger plus</button>
+
+
 </main><!-- #main -->
 
 <?php

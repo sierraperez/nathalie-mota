@@ -196,6 +196,8 @@ function enqueue_load_more_script()
 }
 add_action('wp_enqueue_scripts', 'enqueue_load_more_script');
 
+
+
 function load_more_photos()
 {
 	// Obtém o número da página enviado via AJAX
@@ -227,3 +229,61 @@ function load_more_photos()
 }
 add_action('wp_ajax_load_more_photos', 'load_more_photos');
 add_action('wp_ajax_nopriv_load_more_photos', 'load_more_photos'); // Permite acesso para visitantes
+
+
+// Ajax para apenas apresentar fotos da mesma categoria . 
+
+function load_more_photos_by_category() {
+    $category_id = isset($_POST['category']) ? intval($_POST['category']) : 0;
+    $paged = isset($_POST['page']) ? intval($_POST['page']) : 1;
+    $exclude = isset($_POST['exclude']) ? explode(',', $_POST['exclude']) : array();
+
+    // Query para buscar imagens da mesma categoria, excluindo os já exibidos
+    $args = array(
+        'post_type'      => 'photo',
+        'posts_per_page' => 2, // Carrega 2 imagens por vez
+        'paged'          => $paged,
+        'post__not_in'   => $exclude, // Exclui os posts já exibidos
+        'tax_query'      => array(
+            array(
+                'taxonomy' => 'categorie',
+                'field'    => 'term_id',
+                'terms'    => $category_id,
+            ),
+        ),
+    );
+
+    $query = new WP_Query($args);
+
+    $response = array(
+        'html'          => '',
+        'new_exclude'   => $exclude,
+        'no_more_posts' => false,
+    );
+
+    if ($query->have_posts()) {
+        while ($query->have_posts()) {
+            $query->the_post();
+            ob_start();
+            get_template_part('template-parts/photo/one-photo');
+            $response['html'] .= ob_get_clean();
+
+            // Adiciona o ID do post atual à lista de excluídos
+            $response['new_exclude'][] = get_the_ID();
+        }
+
+        // Verifica se é a última página
+        if ($paged >= $query->max_num_pages) {
+            $response['no_more_posts'] = true;
+        }
+    } else {
+        $response['no_more_posts'] = true;
+    }
+
+    wp_reset_postdata();
+
+    // Retorna os dados como JSON
+    wp_send_json($response);
+}
+add_action('wp_ajax_load_more_photos_by_category', 'load_more_photos_by_category');
+add_action('wp_ajax_nopriv_load_more_photos_by_category', 'load_more_photos_by_category');
