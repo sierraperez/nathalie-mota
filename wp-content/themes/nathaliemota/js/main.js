@@ -40,3 +40,5 @@ $(document).ready(function () {
     nextpostthumbnail.style.display = "none";
   });
 });
+ 
+// JavaScrip bouton Load More photos 

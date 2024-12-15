@@ -845,7 +845,8 @@ textarea {
 .galerie-photo {
   margin: 0 auto; /* Centraliza a galeria na página */
   padding: 16px; /* Espaçamento ao redor, opcional */
-  gap: 16px; /* Espaço entre as imagens */
+  white-space: break-spaces;
+  white-space-collapse: break-spaces;
   display: flex;
   text-align: center;
   flex-wrap: wrap;
@@ -1166,3 +1167,26 @@ textarea {
   height: 501.19px;
 }
 
+
+#load-more {
+  display: block;
+  margin: 20px auto;
+  padding: 25px 100px;
+  background-color: #D8D8D8;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+}
+#load-more:hover {
+  background-color: #000 ;
+  color:#fff;
+}
+#load-more:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+.menu-footer-menu-container ul{
+  border-top: #000 1px solid;
+
+}
