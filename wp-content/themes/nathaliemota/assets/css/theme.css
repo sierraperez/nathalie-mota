@@ -225,6 +225,7 @@ input[type=submit]:hover {
     text-transform: uppercase;
     text-align: center;
     justify-content: center;
+    margin: 0px !important;
 }
 .menu-footer-menu-container ul li a {
 	color:black;

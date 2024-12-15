@@ -24,7 +24,8 @@ $(document).ready(function () {
   nextpostthumbnail.style.display = "none";
 
   prevlink.addEventListener("mouseover", function () {
-    prevpostthumbnail.style.display = "block";
+    prevpostthumbnail.style.display = "block"
+    prevpostthumbnail.style.display = " transition: 5.5s ease";
   });
 
   prevlink.addEventListener("mouseout", function () {

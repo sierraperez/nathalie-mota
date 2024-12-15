@@ -417,10 +417,16 @@ h4,
 h5,
 h6 {
   clear: both;
+  color: #000000;
 }
 
 p {
   margin-bottom: 1.5em;
+  font-size: 14px;
+  line-height: 15px;
+  text-transform: uppercase;
+  font-family: monospace;
+  color: #000000;
 }
 
 dfn,
@@ -836,6 +842,20 @@ textarea {
   text-align: center;
   width: 100%;
 }
+.galerie-photo {
+  margin: 0 auto; /* Centraliza a galeria na página */
+  padding: 16px; /* Espaçamento ao redor, opcional */
+  gap: 16px; /* Espaço entre as imagens */
+  display: flex;
+  text-align: center;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.galerie-photo img {
+  width: 564px; /* Defina a largura desejada */
+  height: 495px; /* Defina a altura desejada */
+  object-fit: cover; /* Mantém a proporção e cobre o contêiner */
+}
 
 .gallery-columns-2 {
   grid-template-columns: repeat(2, 1fr);
@@ -1043,7 +1063,7 @@ textarea {
 
 .navigation-arrows {
   display: flex;
-  gap: 273px;
+  gap: 40px;
 }
 
 .navigation-arrows a {
@@ -1053,11 +1073,8 @@ textarea {
 
 /* Section taxonomie et photo */
 .photo-info-container {
-  display: flex;
-  width: 40vw;
-  height: auto;
-  object-fit: cover;
 }
+/* Apenas container da foto e descricao da referencia etc  */
 .photo-container {
   display: flex;
   flex-wrap: wrap;
@@ -1066,6 +1083,7 @@ textarea {
   margin: 2em 9vw 0;
 }
 .photo-info-left {
+  align-content: flex-end;
   flex: 0 0 50%;
   box-sizing: border-box;
   align-self: flex-end;
@@ -1077,28 +1095,74 @@ textarea {
   font-style: italic;
   font-weight: 400;
   width: 11vw;
+  font-family: "Space Mono", monospace;
+  line-height: 58px;
 }
 
 .photo-info-right {
+}
+
+.img-single {
+  width: 100%; /* A imagem ocupará 100% da largura do contêiner */
+  height: auto; /* A altura será ajustada proporcionalmente para manter a proporção */
+  max-width: 600px; /* Define o tamanho máximo da imagem */
+  max-height: 892px; /* Define a altura máxima da imagem */
+  object-fit: cover; /* Ajusta como a imagem se encaixa dentro do contêiner */
+}
+.photo-info-nav {
+  display: flex;
+  height: 118px;
+  box-sizing: border-box;
+  align-items: center;
+  margin: 10px 9vw;
+  justify-content: space-between;
+  border-bottom: #000 1px solid;
+}
+
+.photo-info-nav #contactBtn {
+  font-size: 14px;
+  font-weight: 400;
+}
+.photo-info-nav #contactBtn {
+  font-size: 16px;
+  font-family: "Space Mono";
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+  width: 20vw;
+  height: 3vw;
+  margin-right: 12vw;
+  background-color: #d8d8d8;
+  transition: all 0.3s ease;
+}
+.photo-info-nav-block {
+  width: 21vw;
+  height: 115px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
   position: relative;
 }
-
-.btn-gray {
-  background-color: gray;
+.navigation-thumbnails img {
+  width: 85px;
+  height: 76px;
+  position: absolute;
+  bottom: 50px;
+  left: 250px;
+  transition: all 5.5s ease;
 }
 
-.galerie-photo {
-  margin: 0 auto; /* Centraliza a galeria na página */
-  padding: 16px; /* Espaçamento ao redor, opcional */
-  gap: 16px; /* Espaço entre as imagens */
+.sugestion {
   display: flex;
-  text-align: center;
-  flex-wrap: wrap;
-  justify-content: center;
+  place-content:;
+  margin: 10px 9vw;
+  place-content: space-between;
+
 }
 
-.galerie-photo img {
-  width: 564px; /* Defina a largura desejada */
-  height: 495px; /* Defina a altura desejada */
-  object-fit: cover; /* Mantém a proporção e cobre o contêiner */
+.sugestion img {
+  object-fit: cover;
+  width: 641.5px;
+  height: 501.19px;
 }
+
