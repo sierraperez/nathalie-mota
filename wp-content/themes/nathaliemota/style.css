@@ -844,7 +844,7 @@ textarea {
 }
 .galerie-photo {
   margin: 0 auto; /* Centraliza a galeria na página */
-  padding: 16px; /* Espaçamento ao redor, opcional */
+  padding-top: 100px; /* Espaçamento ao redor, opcional */
   white-space: break-spaces;
   white-space-collapse: break-spaces;
   display: flex;
@@ -1211,3 +1211,5 @@ textarea {
   flex: 0 0 calc(50% - 20px); /* Duas imagens por linha */
   margin-bottom: 20px;
 }
+
+

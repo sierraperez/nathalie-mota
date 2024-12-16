@@ -48,9 +48,6 @@ jQuery(document).ready(function ($) {
                 page: nextPage,                        // Página solicitada
                 exclude: exclude                       // Posts já carregados
             },
-            beforeSend: function () {
-                button.text('Carregando...'); // Feedback visual
-            },
             success: function (response) {
                 if (response) {
                     $('#related-photos').append(response.html); // Adiciona as imagens carregadas
@@ -70,6 +67,3 @@ jQuery(document).ready(function ($) {
         });
     });
 });
-
-
-

@@ -19,7 +19,7 @@
                     $query->the_post(); 
                     if (has_post_thumbnail()) : ?>
                     <a href="<?= the_permalink() ?>" alt="<?= the_title() ?>"> 
-                        <?= the_post_thumbnail("hero" , ['class' => 'hero-header__img']); ?>
+                        <?= the_post_thumbnail("hero" , ['class' => '      ']); ?>
                         <h1 class="hero-header__page-title">Photographe Event</h1>
                     </a>
                 <?php endif; 

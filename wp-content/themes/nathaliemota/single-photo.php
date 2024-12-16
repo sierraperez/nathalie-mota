@@ -46,7 +46,30 @@ get_header();
             <div class="photo-info-interest">
                 <p>Cette photo vous intéresse ?</p>
             </div>
-            <button id="contactBtn" class="photo-contact-btn open-contact-modal" data-photo-ref="#">Contact</button>
+
+            <?php
+            // Obtém a referência do post
+            $post_reference = get_post_meta(get_the_ID(), 'reference', true);
+            ?>
+
+            <!-- Botão para abrir o formulário -->
+            <button id="contactBtn" class="photo-contact-btn open-contact-modal"
+                data-photo-ref="<?php echo esc_attr($post_reference); ?>">Contact</button>
+
+
+
+            <!-- Popup (inicialmente oculta) -->
+            <div class="popup-overlay" id="contactPopup" style="display:none;">
+                <div class="popup-salon">
+                    <div class="popup-header">
+                        <span class="popup-close" id="closePopup"><i class="fa fa-times"></i></span>
+                    </div>
+                    <?php
+                    // Exibe o formulário de contato
+                    echo do_shortcode('[contact-form-7 id="eaaac68" title="Contact form"]');
+                    ?>
+                </div>
+            </div>
 
             <div class="photo-info-nav-block">
                 <div class="navigation-thumbnails">

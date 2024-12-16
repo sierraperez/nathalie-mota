@@ -42,3 +42,30 @@ $(document).ready(function () {
 });
  
 // JavaScrip bouton Load More photos 
+
+
+
+
+document.getElementById("contactBtn").addEventListener("click", function() {
+    // Captura o valor da referência do botão clicado
+    var photoReference = this.getAttribute("data-photo-ref");
+
+    // Preenche o campo de referência no formulário Contact Form 7
+    document.getElementById("ref_photo").value = photoReference;
+
+    // Exibe o popup
+    document.querySelector(".popup-overlay").style.display = "flex";
+});
+
+// Fechar o popup ao clicar no botão de fechar
+document.querySelector(".popup-close").addEventListener("click", function() {
+    document.querySelector(".popup-overlay").style.display = "none";
+});
+
+// Fechar o popup ao clicar fora dele
+document.querySelector(".popup-overlay").addEventListener("click", function(event) {
+    if (event.target === this) {
+        this.style.display = "none";
+    }
+});
+
