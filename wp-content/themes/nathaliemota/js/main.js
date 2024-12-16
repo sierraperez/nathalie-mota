@@ -69,3 +69,73 @@ document.querySelector(".popup-overlay").addEventListener("click", function(even
     }
 });
 
+
+
+document.addEventListener('DOMContentLoaded', function() {
+  const gallery = document.getElementById('photo-gallery');
+  const loadMoreButton = document.getElementById('load-more');
+  let currentPage = parseInt(loadMoreButton.dataset.page);
+
+  // Função para carregar mais imagens
+  loadMoreButton.addEventListener('click', function() {
+      currentPage++;
+      const xhr = new XMLHttpRequest();
+      xhr.open('POST', '/wp-admin/admin-ajax.php', true);
+      xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+      xhr.onload = function() {
+          if (xhr.status === 200 && xhr.responseText) {
+              const newPhotos = document.createElement('div');
+              newPhotos.innerHTML = xhr.responseText;
+              while (newPhotos.firstChild) {
+                  gallery.appendChild(newPhotos.firstChild);
+              }
+              loadMoreButton.dataset.page = currentPage;
+
+              // Reaplica os eventos às novas imagens carregadas
+              attachImageEvents();
+          } else {
+              loadMoreButton.textContent = 'Nenhuma imagem adicional';
+              loadMoreButton.disabled = true;
+          }
+      };
+
+      xhr.send(`action=load_more_photos&page=${currentPage}`);
+  });
+
+  // Função para adicionar os eventos de clique ao overlay
+  function attachImageEvents() {
+      const galleryImages = document.querySelectorAll('.galerie-photo img');
+      const overlay = document.getElementById('photo-overlay');
+      const overlayImage = overlay.querySelector('.overlay-image');
+      const overlayCaption = overlay.querySelector('.overlay-caption');
+      const closeOverlay = overlay.querySelector('.close-overlay');
+
+      galleryImages.forEach(image => {
+          image.addEventListener('click', function() {
+              const imgSrc = this.getAttribute('src');
+              const caption = this.getAttribute('alt') || 'Sem descrição disponível';
+
+              overlayImage.src = imgSrc;
+              overlayCaption.textContent = caption;
+              overlay.style.display = 'flex';
+          });
+      });
+
+      closeOverlay.addEventListener('click', function() {
+          overlay.style.display = 'none';
+      });
+
+      overlay.addEventListener('click', function(event) {
+          if (event.target === overlay) {
+              overlay.style.display = 'none';
+          }
+      });
+  }
+
+  // Chama a função inicialmente
+  attachImageEvents();
+});
+
+overlay.classList.add('show'); // Exibe o overlay
+overlay.classList.remove('show'); // Oculta o overlay

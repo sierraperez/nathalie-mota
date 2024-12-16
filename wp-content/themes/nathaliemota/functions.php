@@ -287,3 +287,5 @@ function load_more_photos_by_category() {
 }
 add_action('wp_ajax_load_more_photos_by_category', 'load_more_photos_by_category');
 add_action('wp_ajax_nopriv_load_more_photos_by_category', 'load_more_photos_by_category');
+
+
