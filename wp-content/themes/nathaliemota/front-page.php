@@ -16,7 +16,7 @@ get_header();
 
 
 
-    <?php get_template_part("template-parts/photo/filter-photo")?>
+    <?php get_template_part("template-parts/photo/filter-photo") ?>
 
 
     <!-- Galeria de Fotos -->
@@ -36,16 +36,14 @@ get_header();
                 $query->the_post();
         ?>
                 <!-- Cada imagem da galeria -->
-                <article class="photo-item">
-                    <img
-                        src="<?php echo esc_url(get_the_post_thumbnail_url()); ?>"
-                        alt="<?php echo esc_attr(get_the_title()); ?>"
-                        class="gallery-image">
-                </article>
+                <?php get_template_part('template-parts/onephoto'); ?>
         <?php
             }
-            wp_reset_postdata(); // Reseta a query
+            echo '</div>';
+        } else {
+            echo "Désolée. Nous n'avons pas d'autres photos dans cette catégorie.";
         }
+        wp_reset_postdata();
         ?>
     </section>
 
