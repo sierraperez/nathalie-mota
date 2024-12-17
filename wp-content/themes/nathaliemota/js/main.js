@@ -1,141 +1,121 @@
 $(document).ready(function () {
+  // Esconder o popup inicialmente
   $(".popup-overlay").hide();
+
   console.log("Test");
+
+  // Abrir o popup e preencher referência ao clicar no botão de contato
   $(".btn-contact").click(function () {
     $(".popup-overlay").show();
-    const reference_value =
-      document.querySelector(".reference_value").innerHTML;
+    const reference_value = $(".reference_value").text();
     console.log(reference_value);
-    const ref_photo = document.getElementById("ref_photo");
-    console.log(ref_photo);
-    ref_photo.value = reference_value;
+    $("#ref_photo").val(reference_value);
   });
+
+  // Fechar popup ao clicar no botão de fechar
   $(".popup-close").click(function () {
     console.log("Test");
     $(".popup-overlay").hide();
   });
 
-  const prevlink = document.querySelector(".prev-link");
-  const nextlink = document.querySelector(".next-link");
-  const prevpostthumbnail = document.querySelector(".prev-post-thumbnail");
-  const nextpostthumbnail = document.querySelector(".next-post-thumbnail");
-
-  prevpostthumbnail.style.display = "none";
-  nextpostthumbnail.style.display = "none";
-
-  prevlink.addEventListener("mouseover", function () {
-    prevpostthumbnail.style.display = "block"
-    prevpostthumbnail.style.display = " transition: 5.5s ease";
-  });
-
-  prevlink.addEventListener("mouseout", function () {
-    prevpostthumbnail.style.display = "none";
-  });
-
-  nextlink.addEventListener("mouseover", function () {
-    nextpostthumbnail.style.display = "block";
-  });
-
-  nextlink.addEventListener("mouseout", function () {
-    nextpostthumbnail.style.display = "none";
-  });
-});
- 
-// JavaScrip bouton Load More photos 
-
-
-
-
-document.getElementById("contactBtn").addEventListener("click", function() {
-    // Captura o valor da referência do botão clicado
-    var photoReference = this.getAttribute("data-photo-ref");
-
-    // Preenche o campo de referência no formulário Contact Form 7
-    document.getElementById("ref_photo").value = photoReference;
-
-    // Exibe o popup
-    document.querySelector(".popup-overlay").style.display = "flex";
-});
-
-// Fechar o popup ao clicar no botão de fechar
-document.querySelector(".popup-close").addEventListener("click", function() {
-    document.querySelector(".popup-overlay").style.display = "none";
-});
-
-// Fechar o popup ao clicar fora dele
-document.querySelector(".popup-overlay").addEventListener("click", function(event) {
+  // Fechar o popup ao clicar fora dele
+  $(".popup-overlay").on("click", function (event) {
     if (event.target === this) {
-        this.style.display = "none";
+      $(this).hide();
     }
-});
-
-
-
-document.addEventListener('DOMContentLoaded', function() {
-  const gallery = document.getElementById('photo-gallery');
-  const loadMoreButton = document.getElementById('load-more');
-  let currentPage = parseInt(loadMoreButton.dataset.page);
-
-  // Função para carregar mais imagens
-  loadMoreButton.addEventListener('click', function() {
-      currentPage++;
-      const xhr = new XMLHttpRequest();
-      xhr.open('POST', '/wp-admin/admin-ajax.php', true);
-      xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-
-      xhr.onload = function() {
-          if (xhr.status === 200 && xhr.responseText) {
-              const newPhotos = document.createElement('div');
-              newPhotos.innerHTML = xhr.responseText;
-              while (newPhotos.firstChild) {
-                  gallery.appendChild(newPhotos.firstChild);
-              }
-              loadMoreButton.dataset.page = currentPage;
-
-              // Reaplica os eventos às novas imagens carregadas
-              attachImageEvents();
-          } else {
-              loadMoreButton.textContent = 'Nenhuma imagem adicional';
-              loadMoreButton.disabled = true;
-          }
-      };
-
-      xhr.send(`action=load_more_photos&page=${currentPage}`);
   });
 
-  // Função para adicionar os eventos de clique ao overlay
+  // Configuração inicial das variáveis para galeria e botão
+  const gallery = $("#photo-gallery");
+  let currentPage = parseInt($("#load-more").data("page"));
+
+  // Função para carregar mais imagens via AJAX
+  $("#load-more").on("click", function () {
+    currentPage++;
+
+    $.ajax({
+      url: "/wp-admin/admin-ajax.php",
+      method: "POST",
+      data: {
+        action: "load_more_photos",
+        page: currentPage,
+      },
+      success: function (response) {
+        if (response.trim()) {
+          gallery.append(response); // Adiciona o conteúdo retornado
+          $("#load-more").data("page", currentPage);
+
+          // Reaplica os eventos às novas imagens carregadas
+          attachImageEvents();
+        } else {
+          $("#load-more").text("Nenhuma imagem adicional").prop("disabled", true);
+        }
+      },
+      error: function (xhr, status, error) {
+        console.error("Erro ao carregar imagens:", error);
+      },
+    });
+  });
+
+  // Função para adicionar eventos de clique às imagens
   function attachImageEvents() {
-      const galleryImages = document.querySelectorAll('.galerie-photo img');
-      const overlay = document.getElementById('photo-overlay');
-      const overlayImage = overlay.querySelector('.overlay-image');
-      const overlayCaption = overlay.querySelector('.overlay-caption');
-      const closeOverlay = overlay.querySelector('.close-overlay');
+    const overlay = $("#photo-overlay");
+    const overlayImage = $(".overlay-image");
+    const overlayCaption = $(".overlay-caption");
 
-      galleryImages.forEach(image => {
-          image.addEventListener('click', function() {
-              const imgSrc = this.getAttribute('src');
-              const caption = this.getAttribute('alt') || 'Sem descrição disponível';
+    $(".galerie-photo img").on("click", function () {
+      const imgSrc = $(this).attr("src");
+      const caption = $(this).attr("alt") || "Sem descrição disponível";
 
-              overlayImage.src = imgSrc;
-              overlayCaption.textContent = caption;
-              overlay.style.display = 'flex';
-          });
-      });
+      overlayImage.attr("src", imgSrc);
+      overlayCaption.text(caption);
+      overlay.css("display", "flex");
+    });
 
-      closeOverlay.addEventListener('click', function() {
-          overlay.style.display = 'none';
-      });
+    $(".close-overlay").on("click", function () {
+      overlay.hide();
+    });
 
-      overlay.addEventListener('click', function(event) {
-          if (event.target === overlay) {
-              overlay.style.display = 'none';
-          }
-      });
+    overlay.on("click", function (event) {
+      if (event.target === this) {
+        overlay.hide();
+      }
+    });
   }
 
   // Chama a função inicialmente
   attachImageEvents();
-});
 
-overlay.classList.add('show'); // Exibe o overlay
-overlay.classList.remove('show'); // Oculta o overlay
+  // Função para aplicar filtros usando AJAX
+  function filtres() {
+    $(".form-select").on("change", function () {
+      const categorie = $("#categorie_id").val();
+      const format = $("#format_id").val();
+      const order = $("#date").val();
+      const nonce = $("#nonce").val();
+      const ajaxurl = $("#ajaxurl").val();
+
+      $.ajax({
+        url: ajaxurl,
+        method: "POST",
+        data: {
+          action: "filter_photos",
+          nonce: nonce,
+          categorie: categorie,
+          format: format,
+          order: order,
+        },
+        success: function (response) {
+          gallery.html(response); // Substitui o conteúdo da galeria com os resultados
+          attachImageEvents(); // Reaplica os eventos às imagens filtradas
+        },
+        error: function (xhr, status, error) {
+          console.error("Erro ao filtrar imagens:", error);
+        },
+      });
+    });
+  }
+
+  // Inicializa a função de filtros
+  filtres();
+});

@@ -14,6 +14,11 @@ get_header();
 <main id="primary" class="site-main">
     <?php get_template_part("template-parts/header/hero") ?>
 
+
+
+    <?php get_template_part("template-parts/photo/filter-photo")?>
+
+
     <!-- Galeria de Fotos -->
     <section class="galerie-photo" id="photo-gallery">
         <?php
@@ -105,10 +110,11 @@ get_footer();
     }
 
     .photo-item:hover img {
-    filter: brightness(0.4); /* Reduz o brilho para 70%, deixando a imagem mais escura */
-    transition: filter 0.5s ease-in-out; /* Adiciona transição suave */
-}
-
+        filter: brightness(0.4);
+        /* Reduz o brilho para 70%, deixando a imagem mais escura */
+        transition: filter 0.5s ease-in-out;
+        /* Adiciona transição suave */
+    }
 </style>
 
 <!-- Adiciona o script para controlar o overlay -->

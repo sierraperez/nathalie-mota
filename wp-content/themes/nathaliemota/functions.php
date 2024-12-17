@@ -233,59 +233,163 @@ add_action('wp_ajax_nopriv_load_more_photos', 'load_more_photos'); // Permite ac
 
 // Ajax para apenas apresentar fotos da mesma categoria . 
 
-function load_more_photos_by_category() {
-    $category_id = isset($_POST['category']) ? intval($_POST['category']) : 0;
-    $paged = isset($_POST['page']) ? intval($_POST['page']) : 1;
-    $exclude = isset($_POST['exclude']) ? explode(',', $_POST['exclude']) : array();
+function load_more_photos_by_category()
+{
+	$category_id = isset($_POST['category']) ? intval($_POST['category']) : 0;
+	$paged = isset($_POST['page']) ? intval($_POST['page']) : 1;
+	$exclude = isset($_POST['exclude']) ? explode(',', $_POST['exclude']) : array();
 
-    // Query para buscar imagens da mesma categoria, excluindo os já exibidos
-    $args = array(
-        'post_type'      => 'photo',
-        'posts_per_page' => 2, // Carrega 2 imagens por vez
-        'paged'          => $paged,
-        'post__not_in'   => $exclude, // Exclui os posts já exibidos
-        'tax_query'      => array(
-            array(
-                'taxonomy' => 'categorie',
-                'field'    => 'term_id',
-                'terms'    => $category_id,
-            ),
-        ),
-    );
+	// Query para buscar imagens da mesma categoria, excluindo os já exibidos
+	$args = array(
+		'post_type'      => 'photo',
+		'posts_per_page' => 2, // Carrega 2 imagens por vez
+		'paged'          => $paged,
+		'post__not_in'   => $exclude, // Exclui os posts já exibidos
+		'tax_query'      => array(
+			array(
+				'taxonomy' => 'categorie',
+				'field'    => 'term_id',
+				'terms'    => $category_id,
+			),
+		),
+	);
 
-    $query = new WP_Query($args);
+	$query = new WP_Query($args);
 
-    $response = array(
-        'html'          => '',
-        'new_exclude'   => $exclude,
-        'no_more_posts' => false,
-    );
+	$response = array(
+		'html'          => '',
+		'new_exclude'   => $exclude,
+		'no_more_posts' => false,
+	);
 
-    if ($query->have_posts()) {
-        while ($query->have_posts()) {
-            $query->the_post();
-            ob_start();
-            get_template_part('template-parts/photo/one-photo');
-            $response['html'] .= ob_get_clean();
+	if ($query->have_posts()) {
+		while ($query->have_posts()) {
+			$query->the_post();
+			ob_start();
+			get_template_part('template-parts/photo/one-photo');
+			$response['html'] .= ob_get_clean();
 
-            // Adiciona o ID do post atual à lista de excluídos
-            $response['new_exclude'][] = get_the_ID();
-        }
+			// Adiciona o ID do post atual à lista de excluídos
+			$response['new_exclude'][] = get_the_ID();
+		}
 
-        // Verifica se é a última página
-        if ($paged >= $query->max_num_pages) {
-            $response['no_more_posts'] = true;
-        }
-    } else {
-        $response['no_more_posts'] = true;
-    }
+		// Verifica se é a última página
+		if ($paged >= $query->max_num_pages) {
+			$response['no_more_posts'] = true;
+		}
+	} else {
+		$response['no_more_posts'] = true;
+	}
 
-    wp_reset_postdata();
+	wp_reset_postdata();
 
-    // Retorna os dados como JSON
-    wp_send_json($response);
+	// Retorna os dados como JSON
+	wp_send_json($response);
 }
 add_action('wp_ajax_load_more_photos_by_category', 'load_more_photos_by_category');
 add_action('wp_ajax_nopriv_load_more_photos_by_category', 'load_more_photos_by_category');
 
 
+
+
+function filter_photos()
+{
+	// Récupérer les paramètres de filtrage et de tri
+	$categorie = isset($_POST['categorie']) ? $_POST['categorie'] : '';
+	$format = isset($_POST['format']) ? $_POST['format'] : '';
+	$order = isset($_POST['order']) ? $_POST['order'] : 'date';
+
+	// Construire les arguments pour WP_Query en fonction des paramètres de filtrage et de tri
+	$args = array(
+		'post_type' => 'photos',
+		'posts_per_page' => 8,
+		'orderby' => 'date',
+		'order' => 'DESC'
+	);
+	// Ajouter les conditions de filtrage si une catégorie est sélectionnée
+	if (!empty($categorie)) {
+		if ($args['tax_query']) {
+			array_push(
+				$args['tax_query'],
+				array(
+					'taxonomy' => 'categorie',
+					'field' => 'id',
+					'terms' => $categorie
+
+				)
+			);
+		} else {
+			$args['tax_query'] = array(
+				array(
+					'taxonomy' => 'categorie',
+					'field' => 'id',
+					'terms' => $categorie
+				)
+			);
+		}
+	}
+
+	// Ajouter les conditions de filtrage si un format est sélectionné 
+	if (!empty($format)) {
+		if ($args['tax_query']) {
+			array_push(
+				$args['tax_query'],
+				array(
+					'taxonomy' => 'formats',
+					'field' => 'id',
+					'terms' => $format
+
+				)
+			);
+		} else {
+			$args['tax_query'] = array(
+				array(
+					'taxonomy' => 'formats',
+					'field' => 'id',
+					'terms' => $format
+				)
+			);
+		}
+	}
+	// Modifier les arguments de tri si nécessaire
+	if ($order == 'asc') {
+		$args['order'] = 'ASC';
+	}
+
+	// Exécuter la requête WP_Query
+	$query = new WP_Query($args);
+	$paged = isset($_POST['page']) ? intval($_POST['page']) : 1;
+	$exclude = isset($_POST['exclude']) ? explode(',', $_POST['exclude']) : array();
+
+	$response = array(
+		'html'          => '',
+		'new_exclude'   => $exclude,
+		'no_more_posts' => false,
+	);
+
+	if ($query->have_posts()) {
+		while ($query->have_posts()) {
+			$query->the_post();
+			ob_start();
+			get_template_part('template-parts/photo/one-photo');
+			$response['html'] .= ob_get_clean();
+
+			// Adiciona o ID do post atual à lista de excluídos
+			$response['new_exclude'][] = get_the_ID();
+		}
+
+		// Verifica se é a última página
+		if ($paged >= $query->max_num_pages) {
+			$response['no_more_posts'] = true;
+		}
+	} else {
+		$response['no_more_posts'] = true;
+	}
+
+	wp_reset_postdata();
+
+	// Retorna os dados como JSON
+	wp_send_json($response);
+}
+add_action("wp_ajax_filter_photos", "filter_photos");
+add_action("wp_ajax_nopriv_filter_photos", "filter_photos");
